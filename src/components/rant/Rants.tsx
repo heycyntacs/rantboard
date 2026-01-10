@@ -15,30 +15,6 @@ export default function Rants() {
               new Date(a.created_at).getTime()
           )
           .map((rant) => <Rant key={rant.id} rant={rant} />)}
-      {rants.length > 0 &&
-        rants
-          .sort(
-            (a: RantType, b: RantType) =>
-              new Date(b.created_at).getTime() -
-              new Date(a.created_at).getTime()
-          )
-          .map((rant) => <Rant key={rant.id} rant={rant} />)}
-      {rants.length > 0 &&
-        rants
-          .sort(
-            (a: RantType, b: RantType) =>
-              new Date(b.created_at).getTime() -
-              new Date(a.created_at).getTime()
-          )
-          .map((rant) => <Rant key={rant.id} rant={rant} />)}
-      {rants.length > 0 &&
-        rants
-          .sort(
-            (a: RantType, b: RantType) =>
-              new Date(b.created_at).getTime() -
-              new Date(a.created_at).getTime()
-          )
-          .map((rant) => <Rant key={rant.id} rant={rant} />)}
     </div>
   );
 }
