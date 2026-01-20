@@ -14,7 +14,7 @@ export default function RantCard({ rant }: { rant: Rant }) {
   return (
     <Card className="group hover:shadow-primary h-75 cursor-pointer gap-2 p-4 text-left shadow transition-shadow">
       <CardHeader className="p-0">
-        <CardTitle className="group-hover:text-primary transition-colors">
+        <CardTitle className="group-hover:text-primary font-bold transition-colors">
           {rant.title}
         </CardTitle>
       </CardHeader>

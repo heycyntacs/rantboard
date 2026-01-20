@@ -9,7 +9,7 @@ export default function RantCardDialog({ rant }: { rant: RantInterface }) {
       <DialogTrigger>
         <RantCard rant={rant} />
       </DialogTrigger>
-      <DialogContent className="max-h-[80%] min-w-[50%] overflow-y-auto rounded-xl">
+      <DialogContent className="max-h-[80%] min-w-[50%] overflow-y-auto rounded-xl p-10">
         <Rant rant={rant} />
       </DialogContent>
     </Dialog>
