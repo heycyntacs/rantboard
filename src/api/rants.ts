@@ -1,0 +1,62 @@
+const API_URL = `${import.meta.env.VITE_API_URL}/api/rants`;
+
+export const getRants = async ({
+  limit = 10,
+  page = 1,
+}: {
+  limit?: number;
+  page?: number;
+}) => {
+  try {
+    const response = await fetch(
+      `${API_URL}/rants?limit=${limit}&page=${page}`
+    );
+
+    if (!response.ok) {
+      const error = await response.json();
+      return { error: error.error ?? 'Request failed' };
+    }
+
+    return response.json();
+  } catch (err) {
+    console.error(err);
+    return {
+      error: 'An unknown error occurred',
+    };
+  }
+};
+
+export const addRant = async ({
+  title,
+  content,
+}: {
+  title: string;
+  content: string;
+}) => {
+  try {
+    const response = await fetch(`${API_URL}/rant`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      return { error: error.error ?? 'Request failed' };
+    }
+
+    const result = await response.json();
+
+    return result;
+  } catch (err) {
+    console.error(err);
+    return {
+      error: 'An unknown error occurred',
+    };
+  }
+};
