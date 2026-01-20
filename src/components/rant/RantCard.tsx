@@ -12,7 +12,7 @@ import { formatDistance } from 'date-fns';
 
 export default function RantCard({ rant }: { rant: Rant }) {
   return (
-    <Card className="group hover:shadow-primary h-75 cursor-pointer gap-2 p-4 text-left shadow transition-shadow">
+    <Card className="group hover:shadow-primary h-75 max-w-[calc(100dvw-2rem)] cursor-pointer gap-2 p-4 text-left shadow transition-shadow">
       <CardHeader className="p-0">
         <CardTitle className="group-hover:text-primary font-bold transition-colors">
           {rant.title}
