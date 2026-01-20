@@ -1,10 +1,10 @@
 import DashedGrid from '@/components/DashedGrid';
 import Header from '@/components/Header';
 import { createFileRoute } from '@tanstack/react-router';
-import RantDialog from '@/components/rant/RantDialog';
 import Rants from '@/components/rant/Rants';
 import { useEffect } from 'react';
 import { useSession } from '@/hooks/useSession';
+import RantFormDialog from '@/components/rant/RantFormDialog';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -22,7 +22,7 @@ function RouteComponent() {
       <DashedGrid />
       <div className="relative flex flex-col gap-6 px-4 py-6 lg:p-8">
         <Header />
-        <RantDialog />
+        <RantFormDialog />
         <div className="lg:px-10">
           <Rants />
         </div>

@@ -12,7 +12,7 @@ import {
   AlertDialogTitle,
 } from '../ui/alert-dialog';
 
-export default function RantDialog() {
+export default function RantFormDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmationOpen, setConfirmationOpen] = useState(false);
 
@@ -35,7 +35,7 @@ export default function RantDialog() {
         <DialogTrigger className="bg-primary text-primary-foreground hover:bg-primary/80 mx-auto w-fit cursor-pointer rounded-md px-2.5 py-2 text-sm font-medium">
           Got something to share?
         </DialogTrigger>
-        <DialogContent className={'h-[50vh] md:max-w-[750px]'}>
+        <DialogContent className={'md:max-w-[750px]'}>
           <RantForm closeDialog={handleClose} />
         </DialogContent>
       </Dialog>

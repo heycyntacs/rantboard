@@ -1,6 +1,6 @@
 import type { Rant as RantType } from '@/types/rant.types';
-import Rant from './Rant';
 import { useRantStore } from '@/stores/rant-store';
+import RantCardDialog from './RantCardDialog';
 
 export default function Rants() {
   const rants = useRantStore((state) => state.rants);
@@ -14,7 +14,7 @@ export default function Rants() {
               new Date(b.created_at).getTime() -
               new Date(a.created_at).getTime()
           )
-          .map((rant) => <Rant key={rant.id} rant={rant} />)}
+          .map((rant) => <RantCardDialog key={rant.id} rant={rant} />)}
     </div>
   );
 }
