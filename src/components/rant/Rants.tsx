@@ -12,8 +12,8 @@ export default function Rants() {
   if (isLoading) {
     return (
       <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-        {Array.from({ length: 12 }).map(() => (
-          <RantSkeleton />
+        {Array.from({ length: 12 }).map((_, index) => (
+          <RantSkeleton key={index} />
         ))}
       </div>
     );
