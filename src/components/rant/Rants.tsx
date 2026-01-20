@@ -1,9 +1,13 @@
-import type { Rant as RantType } from '@/types/rant.types';
-import { useRantStore } from '@/stores/rant-store';
+import type { Rant, Rant as RantType } from '@/types/rant.types';
 import RantCardDialog from './RantCardDialog';
+import { useRants } from '@/hooks/useRants';
 
 export default function Rants() {
-  const rants = useRantStore((state) => state.rants);
+  const { data, isLoading } = useRants();
+
+  const rants = data?.data;
+
+  if (isLoading) return;
 
   return (
     <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
@@ -14,7 +18,7 @@ export default function Rants() {
               new Date(b.created_at).getTime() -
               new Date(a.created_at).getTime()
           )
-          .map((rant) => <RantCardDialog key={rant.id} rant={rant} />)}
+          .map((rant: Rant) => <RantCardDialog key={rant.id} rant={rant} />)}
     </div>
   );
 }
