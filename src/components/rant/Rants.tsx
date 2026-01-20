@@ -1,24 +1,35 @@
-import type { Rant, Rant as RantType } from '@/types/rant.types';
-import RantCardDialog from './RantCardDialog';
 import { useRants } from '@/hooks/useRants';
+import RantSkeleton from './RantSkeleton';
+import type { Rant } from '@/types/rant.types';
+import RantCardDialog from './RantCardDialog';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function Rants() {
-  const { data, isLoading } = useRants();
+  const { data, isLoading, fetchNextPage, hasNextPage } = useRants({});
 
-  const rants = data?.data;
+  const rants = data?.pages.flatMap((page) => page?.data ?? []) || [];
 
-  if (isLoading) return;
+  if (isLoading) {
+    return (
+      <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+        {Array.from({ length: 12 }).map(() => (
+          <RantSkeleton />
+        ))}
+      </div>
+    );
+  }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-      {rants.length > 0 &&
-        rants
-          .sort(
-            (a: RantType, b: RantType) =>
-              new Date(b.created_at).getTime() -
-              new Date(a.created_at).getTime()
-          )
-          .map((rant: Rant) => <RantCardDialog key={rant.id} rant={rant} />)}
-    </div>
+    <InfiniteScroll
+      dataLength={rants.length}
+      hasMore={hasNextPage}
+      next={fetchNextPage}
+      loader={null}
+      className="grid gap-4 overflow-visible! md:grid-cols-2 md:gap-6 lg:grid-cols-3"
+    >
+      {rants.map((rant: Rant) => (
+        <RantCardDialog key={rant.id} rant={rant} />
+      ))}
+    </InfiniteScroll>
   );
 }

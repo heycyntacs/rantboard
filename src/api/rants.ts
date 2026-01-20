@@ -1,9 +1,29 @@
 const API_URL = `${import.meta.env.VITE_API_URL}/api/rants`;
 
-export const getRants = async () => {
-  const response = await fetch(`${API_URL}/rants?limit=10`);
+export const getRants = async ({
+  limit = 10,
+  page = 1,
+}: {
+  limit?: number;
+  page?: number;
+}) => {
+  try {
+    const response = await fetch(
+      `${API_URL}/rants?limit=${limit}&page=${page}`
+    );
 
-  return response.json();
+    if (!response.ok) {
+      const error = await response.json();
+      return { error: error.error ?? 'Request failed' };
+    }
+
+    return response.json();
+  } catch (err) {
+    console.error(err);
+    return {
+      error: 'An unknown error occurred',
+    };
+  }
 };
 
 export const addRant = async ({
@@ -13,21 +33,22 @@ export const addRant = async ({
   title: string;
   content: string;
 }) => {
-  if (!title || !content) {
-    return {
-      error: 'Missing title or content in body',
-    };
-  }
-
   try {
     const response = await fetch(`${API_URL}/rant`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        created_at: new Date(),
         title: title,
         content: content,
       }),
     });
+
+    if (!response.ok) {
+      const error = await response.json();
+      return { error: error.error ?? 'Request failed' };
+    }
 
     const result = await response.json();
 
@@ -35,7 +56,7 @@ export const addRant = async ({
   } catch (err) {
     console.error(err);
     return {
-      error: 'An unkown error occured',
+      error: 'An unknown error occurred',
     };
   }
 };

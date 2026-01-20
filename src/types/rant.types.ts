@@ -4,3 +4,10 @@ export interface Rant {
   title: string;
   content: string;
 }
+
+export interface RantPagination {
+  page: number;
+  limit: number;
+  count: number;
+  hasNextPage: boolean;
+}
