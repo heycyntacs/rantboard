@@ -5,7 +5,10 @@ import { useRantMutation } from './useRantsMutation';
 
 const rantFormSchema = z.object({
   title: z.string().min(2, 'Title must have at least 2 characters.'),
-  content: z.string().min(2, 'Content must have at least 2 characters.'),
+  content: z
+    .string()
+    .min(2, 'Content must have at least 2 characters.')
+    .max(10000),
 });
 
 export const useRantForm = () => {
@@ -21,7 +24,7 @@ export const useRantForm = () => {
   const handleSubmit = (data: z.infer<typeof rantFormSchema>) => {
     const { title, content } = data;
 
-    if (content.length < 2) return;
+    if (title.length < 2 || content.length < 2) return;
 
     mutateAsync({ title, content });
   };
