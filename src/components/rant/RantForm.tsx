@@ -1,5 +1,8 @@
 import { useRantForm } from '@/hooks/useRantForm';
 import { Button } from '../ui/button';
+import { MIN_MAX_FORM_LENGTH } from '@/lib/constants';
+
+const { TITLE, CONTENT } = MIN_MAX_FORM_LENGTH;
 
 interface RantFormProps {
   closeDialog?: () => void;
@@ -10,7 +13,11 @@ export default function RantForm({ closeDialog }: RantFormProps) {
   const title = form.watch('title');
   const content = form.watch('content');
 
-  const isDisabled = title.length < 2 || content.length < 2;
+  const isDisabled =
+    title.length < TITLE.MIN ||
+    content.length < CONTENT.MIN ||
+    title.length > TITLE.MAX ||
+    content.length > CONTENT.MAX;
 
   return (
     <form
