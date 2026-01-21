@@ -1,4 +1,5 @@
 const API_URL = `${import.meta.env.VITE_API_URL}/api/rants`;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 export const getRants = async ({
   limit = 10,
@@ -9,7 +10,12 @@ export const getRants = async ({
 }) => {
   try {
     const response = await fetch(
-      `${API_URL}/rants?limit=${limit}&page=${page}`
+      `${API_URL}/rants?limit=${limit}&page=${page}`,
+      {
+        headers: {
+          'x-api-key': API_KEY,
+        },
+      }
     );
 
     if (!response.ok) {
@@ -38,6 +44,7 @@ export const addRant = async ({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'x-api-key': API_KEY,
       },
       body: JSON.stringify({
         title: title,
