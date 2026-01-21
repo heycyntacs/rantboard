@@ -35,9 +35,11 @@ export const getRants = async ({
 export const addRant = async ({
   title,
   content,
+  token,
 }: {
   title: string;
   content: string;
+  token: string;
 }) => {
   try {
     const response = await fetch(`${API_URL}/rant`, {
@@ -49,6 +51,7 @@ export const addRant = async ({
       body: JSON.stringify({
         title: title,
         content: content,
+        token: token,
       }),
     });
 

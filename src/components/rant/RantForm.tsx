@@ -1,6 +1,7 @@
 import { useRantForm } from '@/hooks/useRantForm';
 import { Button } from '../ui/button';
 import { MIN_MAX_FORM_LENGTH } from '@/lib/constants';
+import Captcha from '../Captcha';
 
 const { TITLE, CONTENT } = MIN_MAX_FORM_LENGTH;
 
@@ -9,11 +10,14 @@ interface RantFormProps {
 }
 
 export default function RantForm({ closeDialog }: RantFormProps) {
-  const { form, handleSubmit } = useRantForm();
+  const { form, handleSubmit, token, setToken } = useRantForm();
   const title = form.watch('title');
   const content = form.watch('content');
 
   const isDisabled =
+    !token ||
+    token === 'error' ||
+    token === 'expired' ||
     title.length < TITLE.MIN ||
     content.length < CONTENT.MIN ||
     title.length > TITLE.MAX ||
@@ -47,6 +51,7 @@ export default function RantForm({ closeDialog }: RantFormProps) {
           </Button>
         </div>
       </div>
+      <Captcha setToken={setToken} />
     </form>
   );
 }

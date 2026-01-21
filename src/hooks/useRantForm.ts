@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRantMutation } from './useRantsMutation';
 import { MIN_MAX_FORM_LENGTH } from '@/lib/constants';
+import { useState } from 'react';
 
 const { TITLE, CONTENT } = MIN_MAX_FORM_LENGTH;
 
@@ -25,12 +26,16 @@ export const useRantForm = () => {
       content: '',
     },
   });
+  const [token, setToken] = useState('');
   const { mutateAsync } = useRantMutation();
 
   const handleSubmit = (data: z.infer<typeof rantFormSchema>) => {
     const { title, content } = data;
 
     if (
+      !token ||
+      token === 'error' ||
+      token === 'expired' ||
       title.length < TITLE.MIN ||
       content.length < CONTENT.MIN ||
       title.length > TITLE.MAX ||
@@ -38,11 +43,13 @@ export const useRantForm = () => {
     )
       return;
 
-    mutateAsync({ title, content });
+    mutateAsync({ title, content, token });
   };
 
   return {
     form,
     handleSubmit,
+    token,
+    setToken,
   };
 };
